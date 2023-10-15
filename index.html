@@ -243,13 +243,36 @@
                 res += SpecialArr[num % 7]
             }
         }
-        alert(res)
+        return res
     }
-    document.getElementById("submit").onclick = function () {
-        var url = document.getElementById("url").value
+       const copyBtn = document.getElementById('submit');
+
+      copyBtn.addEventListener('click', () => {
+         var url = document.getElementById("url").value
         var pwd = document.getElementById("pwd").value
-        creat(url + pwd)
-    }
+        // 调用函数获取结果
+        const result = creat(url + pwd)
+
+        // 创建临时文本框用于复制
+        const tempTextarea = document.createElement('textarea');
+        tempTextarea.value = result;
+        tempTextarea.setAttribute('readonly', '');
+        tempTextarea.style.position = 'absolute';
+        tempTextarea.style.left = '-9999px';
+
+        // 将临时文本框添加到页面中
+        document.body.appendChild(tempTextarea);
+
+        // 选中文本并复制到剪贴板
+        tempTextarea.select();
+        document.execCommand('copy');
+
+        // 移除临时文本框
+        document.body.removeChild(tempTextarea);
+
+        // 提示复制成功
+        alert('已复制函数结果到剪贴板');
+      });                        
 
 </script>
 </body>
